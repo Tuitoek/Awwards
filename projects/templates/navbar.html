@@ -1,0 +1,38 @@
+{% load bootstrap3 %}
+{%load static%}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  {% block styles %}
+  {% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Margarine" rel="stylesheet">
+  {% endblock %}
+  <title>awwards</title>
+</head>
+
+<body>
+  {%block content%}
+  <div class="container">
+    <br>
+    <nav class="navbar navbar-light bg-light" style="display:flex;justify-content:space-between;">
+      <br>
+      <br>
+          <a class="navbar-brand" href="#">HOME</a>
+          <a class="navbar-brand" align="center">AWWWARDS</a>
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button style="background-color:black;color:white" class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
+          </form>
+    </nav>
+  </div>
+  {%endblock%}
+  {% block scripts %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  {% bootstrap_javascript %}
+  {% endblock %}
+</body>
+
+</html>
