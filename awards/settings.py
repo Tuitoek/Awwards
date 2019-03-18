@@ -69,6 +69,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'star_ratings',
     'bootstrap3',
     'projects.apps.ProjectsConfig',
     'django.contrib.admin',
@@ -189,3 +190,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Configure Django App for Heroku.
 django_heroku.settings(locals())
+
+LOGIN_REDIRECT_URL = "projects"
+STAR_RATINGS_RERATE = False
+STAR_RATINGS_ANONYMOUS = True
+STAR_RATINGS_RANGE = 10

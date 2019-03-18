@@ -9,10 +9,12 @@ from django.contrib.auth.models import User
 
 
 class Project(models.Model):
+    user = models.OneToOneField(User)
     title = models.CharField(max_length=200)
-    description = models.CharField(max_length=200)
+    description = models.TextField(max_length=200)
     link = models.CharField(max_length=1000)
     landingpic = models.ImageField(upload_to='images')
+    username= models.CharField(max_length=20)
 
     def save_project(self):
         self.save()
@@ -21,6 +23,7 @@ class Project(models.Model):
         self.delete()
 
 class Profile(models.Model):
+    user = models.OneToOneField(User)
     dpicture = models.ImageField(upload_to='dp')
     bio = models.CharField(max_length=50)
     projectsposted = models.ForeignKey(Project)

@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Awwwards</title>
+</head>
+
+<body>
+  {%block content%}
+  <div class="form-group">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ p_form.as_p }}
+      {{ u_form.as_p }}
+      <button type="submit">Save changes</button>
+    </form>
+  </div>
+
+  {%endblock%}
+</body>
+
+</html>

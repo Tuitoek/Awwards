@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Awwwards</title>
+</head>
+
+<body>
+  {%block content%}
+  <div class="row">
+    <div class="col-md-6" style="padding:20px;" align="center">
+      <img style="border-radius:70%;" src="{{user.dpicture.url}}" height=200px width=200px>
+      <p> Bio :{{user.bio}}</p>
+      <p>@{{user.username}}</p>
+      <p>{{user.bio}}</p>
+      <a href="{%url 'editdp'%}"> <button type="button" name="button">Edit profile</button> </a>
+    </div>
+  </div>
+
+  {%endblock%}
+</body>
+
+</html>
