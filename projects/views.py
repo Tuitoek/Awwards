@@ -4,9 +4,31 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http  import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Profile,Project,User
+from .models import Profile,Project,User,Post
 from .forms import UserUpdateForm,ProfileUpdateForm,ProjectsForm
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer,ProjectSerializer
+
 # Create your views here.
+class ProfileList(APIView):
+    def get (self,request):
+        profile = Profile.objects.all()
+        serializer = ProfileSerializer(profile,many=True)
+        return Response(serializer.data)
+
+    def post(self):
+        pass
+
+class ProjectList(APIView):
+    def get(self,request):
+        project = Project.objects.all()
+        serializer=ProjectSerializer(project,many=True)
+        return Response(serializer.data)
+
+    def post(self):
+        pass
+
 def landing(request):
     return render(request,'landing.html')
 
@@ -21,6 +43,7 @@ def register(request):
 @login_required(login_url='/accounts/login/')
 def postprojects(request):
     projform = ProjectsForm()
+    projform.owner = request.user
     if request.method == "POST":
         projform = ProjectsForm(request.POST,request.FILES)
         if projform.is_valid():
@@ -34,22 +57,20 @@ def postprojects(request):
 @login_required(login_url='/accounts/login/')
 def profile(request):
     profile=Profile.objects.all()
-    return render(request,'profile.html',{"profile":profile})
+    user = request.user
+    project = Project.objects.filter(user=user)
+    return render(request,'profile.html',{"profile":profile,"project":project})
 
 @login_required(login_url='/accounts/login/')
 def editdp(request):
+    p_form = ProfileUpdateForm(request.POST,request.FILES)
     if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST,instance=request.user)
-        p_form = ProfileUpdateForm(request.POST,request.FILES,instance=request.user)
-        if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
-            p_form.save()
-            return redirect('profile')
-    else:
-        u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user)
-    context = {
-        'u_form': u_form,
-        'p_form': p_form
-    }
-    return render(request,'edit.html',context)
+        p_form = ProfileUpdateForm(request.POST,request.FILES)
+        if p_form.is_valid():
+            add = p_form.save(commit=False)
+            add.save()
+            return render(request,'profile.html')
+        else:
+            p_form = ProfileUpdateForm(request.POST,request.FILES)
+
+    return render(request,'edit.html',locals())

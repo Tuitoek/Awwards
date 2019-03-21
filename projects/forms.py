@@ -9,13 +9,12 @@ class UserUpdateForm(forms.ModelForm):
             model = User
             fields = ['username', 'email']
 
-
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields= ['dpicture','bio']
+        fields= ('user','dpicture','bio','projectsposted','contacts')
 
 class ProjectsForm(forms.ModelForm):
     class Meta:
         model=Project
-        fields = ['title','description','link','landingpic','username']
+        fields = ['title','description','link','landingpic','user']

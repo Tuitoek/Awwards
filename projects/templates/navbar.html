@@ -15,39 +15,41 @@
 
 <body>
   {%block content%}
-
   <br>
-  <nav class="navbar navbar-light bg-light" style="display:flex;justify-content:space-between;">
-    <br>
-    <br>
-    <a class="navbar-brand" href="{%url 'landing'%}">HOME</a>
-    <a class="navbar-brand" href="projects/">PROJECTS</a>
-    <a class="navbar-brand" href="accounts/register">SIGNUP</a>
-    <a class="navbar-brand" href="accounts/login">SIGNIN</a>
-    <a class="navbar-brand" align="center">AWWWARDS</a>
-    <a class="navbar-brand" href="{%url 'profile'%}">Profile</a>
-    <div class="row">
-      <div class="col-md-12">
-        {% if user.is_authenticated %}
-        <div style="display:inline-block;">
-          <a class="navbar-brand" href="/accounts/password/change">Change Password</a>
-          <a class="navbar-brand" href="/logout">Logout</a>
-          {% else %}
-          <a class='btn btn-default' href="/accounts/login">Login</a>
-        </div>
+  <br>
+  <div class="navbar-group">
+    <nav class="navbar" style="display:flex;justify-content:space-evenly;">
+      <br>
+      <a style="float:left;" class="navbar-brand" href="{%url 'landing'%}">HOME
+      </a>
+      <a style="float:left;" class="navbar-brand" href="{%url 'projects'%}">PROJECTS
+      </a>
+      <h1 align="center">awwwwards</h1>
+      <br>
+      <br>
+      {% if user.is_authenticated %}
+      <div style="display:inline-block;float:right;">
+        <a style="float:right;" class="navbar-brand" href="{%url 'profile'%}">PROFILE
+        </a>
+        <a style="float:right;" class="navbar-brand" href="/accounts/password/change">
+          CHANGEPASSWORD
+        </a>
+        <a style="float:right;" class="navbar-brand" href="/logout">
+          LOGOUT
+        </a>
+        {% else %}
+        <a style="float:right" class='btn btn-default' href="/accounts/login">Login</a>
 
         {% endif %}
-        <form class="form-inline">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button style="background-color:black;color:white" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
 
 
-  </nav>
-
+    </nav>
+<hr>
+  </div>
   {%endblock%}
+
+
+
   {% block scripts %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   {% bootstrap_javascript %}

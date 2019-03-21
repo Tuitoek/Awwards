@@ -4,17 +4,14 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
-
 # Create your models here.
-
-
 class Project(models.Model):
-    user = models.OneToOneField(User)
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=200)
     link = models.CharField(max_length=1000)
     landingpic = models.ImageField(upload_to='images')
     username= models.CharField(max_length=20)
+    user = models.OneToOneField(User)
 
     def save_project(self):
         self.save()
@@ -26,9 +23,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User)
     dpicture = models.ImageField(upload_to='dp')
     bio = models.CharField(max_length=50)
-    projectsposted = models.ForeignKey(Project)
+    projectsposted = models.ForeignKey(Project,null=True)
     contacts = models.CharField(max_length=12,blank=True)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def save_profile(self):
         self.save()
@@ -39,3 +35,7 @@ class Profile(models.Model):
     def update_bio(self,bio):
         self.bio = bio
         self.save()
+
+class Post(models.Model):
+    user = models.OneToOneField(User)
+    post = models.ForeignKey(Project)
